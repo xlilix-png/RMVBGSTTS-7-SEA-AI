@@ -52,7 +52,8 @@ function updateStatusAndSendMessages() {
   const nextStatus = statusMessages[(currentIndex + 1) % statusMessages.length];
 
   client.user.setPresence({
-    activities: [{ name: currentStatus, type: ActivityType.Custom}],
+    activities: [{ name: currentStatus, type: ActivityType.Streaming, url:
+      "https://www.twitch.tv/blitzz_seal" }],
     status: 'dnd',
   });
 
