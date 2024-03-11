@@ -1,8 +1,4 @@
-
-
-
-
-const { Client, GatewayIntentBits, ActivityType, TextChannel } = require('discord.js');
+const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
 require('dotenv').config();
 const express = require('express');
 const fs = require('fs');
@@ -15,19 +11,13 @@ const client = new Client({
 const app = express();
 const port = 3000;
 app.get('/', (req, res) => {
-  res.send('YaY Your Bot Status Changed✨');
+  const imagePath = path.join(__dirname, 'index.html');
+  res.sendFile(imagePath);
 });
-app.listen(port, () => {
-  console.log(`🔗 Listening to XLILIX: http://localhost:${port}`);
-  console.log(`🔗 Powered By XLILIX`);
-});
+app.listen(port, () => console.log('\x1b[36m%s\x1b[0m', `|    🔗 Listening to RTX : ${port}`));
 
-
-const statusMessages = ["I Love B. Bunny","S.E.A.L."];
-
-
+const statusMessages = ["yeh", "Second Chance", "to Cupid", "S.E.A.L."]; 
 let currentIndex = 0;
-const channelId = '';
 
 async function login() {
   try {
@@ -39,55 +29,21 @@ async function login() {
   }
 }
 
-/**       
-GIT : https://github.com/RTX-GAMINGG/Bot-ghost-status-remover-by-RTX
-  YOUTUBE : 
- * **********************************************
- * **********************************************
- */
-
-
-function updateStatusAndSendMessages() {
+function updateStatus() {
   const currentStatus = statusMessages[currentIndex];
-  const nextStatus = statusMessages[(currentIndex + 1) % statusMessages.length];
-
   client.user.setPresence({
-    activities: [{ name: currentStatus, type: ActivityType.Streaming, url:
-      "https://www.twitch.tv/blitzz_seal" }],
-    status: 'dnd',
+    activities: [{ name: currentStatus, type: ActivityType.Streaming, url: "https://www.twitch.tv/blitzz_seal"}],
+    status: 'dnd', 
   });
+  currentIndex = (currentIndex + 1) % statusMessages.length;
 
   
-  const textChannel = client.channels.cache.get(channelId);
-
-  if (textChannel instanceof TextChannel) {
-   
-    textChannel.send(`Bot status is: ${currentStatus}`);
-  } else {
-
-  }
-
-  currentIndex = (currentIndex + 1) % statusMessages.length;
+  setTimeout(updateStatus, 1000); 
 }
 
 client.once('ready', () => {
   console.log(`\x1b[36m%s\x1b[0m`, `|    ✅ Bot is ready as ${client.user.tag}`);
-  console.log(`\x1b[36m%s\x1b[0m`, `|    ✨HAPPY NEW YEAR MY DEAR FAMILY`);
-  console.log(`\x1b[36m%s\x1b[0m`, `|    ❤️WELCOME TO 2024`);
-  updateStatusAndSendMessages();
-
-  setInterval(() => {
-    updateStatusAndSendMessages();
-  }, 10000);
+  updateStatus(); 
 });
 
 login();
-
-/**      
-GIT : https://github.com/RTX-GAMINGG/Bot-ghost-status-remover-by-RTX
-  DISCORD SERVER : https://discord.gg/FUEHs7RCqz
-  YOUTUBE : https://www.youtube.com/channel/UCPbAvYWBgnYhliJa1BIrv0A
- * **********************************************
- *   Code by RTX GAMING
- * **********************************************
- */
