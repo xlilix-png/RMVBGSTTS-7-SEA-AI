@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 });
 app.listen(port, () => console.log('\x1b[36m%s\x1b[0m', `|    🔗 Listening to RTX : ${port}`));
 
-const statusMessages = ["I love Lola", "Space Jams", "S.E.A.L."]; 
+const statusMessages = ["Ask me anything", "Chat with me", "S.E.A.L."]; 
 let currentIndex = 0;
 
 async function login() {
